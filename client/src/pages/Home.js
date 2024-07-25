@@ -10,17 +10,19 @@ function Home() {
     useEffect(() => {
         axios.get("http://localhost:3001/posts").then((response) => {
             setListOfPosts(response.data);
+        }).catch(error => {
+            console.error("There was an error fetching the posts!", error);
         });
     }, []);
-    
+
     return (
         <div>
-            {listOfPosts.map((value, key) => {
+            {listOfPosts.map((value) => {
                 return (
                     <div 
-                        key={key} 
+                        key={value.id} 
                         className="post" 
-                        onClick={() => { navigate(`/post/${value.id}`) }}
+                        onClick={() => navigate(`/post/${value.id}`)}
                     >
                         <div className="title"> {value.title} </div>
                         <div className="body">{value.postText}</div>
