@@ -2,10 +2,18 @@ const express = require("express");
 const router = express.Router();
 const { Comments } = require("../models");
 
-router.get('/:postId', async (req, res) => {
-    const postId = req.params.id
-    const comments = await Comments.findAll({where: { PostId : postId}});
+// Rute untuk mendapatkan komentar berdasarkan PostId
+router.get("/:postId", async (req, res) => {
+    const postId = req.params.postId;
+    const comments = await Comments.findAll({ where: { PostId: postId } });
     res.json(comments);
+});
+
+// Rute untuk membuat komentar
+router.post("/", async (req, res) => {
+    const comment = req.body;
+    await Comments.create(comment);
+    res.json(comment);
 });
 
 module.exports = router;

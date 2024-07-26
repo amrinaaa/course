@@ -1,23 +1,23 @@
-const { HasMany } = require("sequelize");
+const { hasMany } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
     const Posts = sequelize.define("Posts", {
         title: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
         },
         postText: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
         },
         username: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
         },
     });
 
     Posts.associate = (models) => { 
-        Posts.HasMany(models.Comments, {
+        Posts.hasMany(models.Comments, {
             onDelete: "cascade",
         });
     };
