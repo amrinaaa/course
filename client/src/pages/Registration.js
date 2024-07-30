@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import axios from 'axios';
+import axios from "axios";
 
 function Registration() {
   const initialValues = {
@@ -10,50 +10,44 @@ function Registration() {
   };
 
   const validationSchema = Yup.object().shape({
-    username: Yup.string()
-      .min(3, "Username must be at least 3 characters long")
-      .max(15, "Username can't be longer than 15 characters")
-      .required("You must input a Username!"),
-    password: Yup.string()
-      .min(4, "Password must be at least 4 characters long")
-      .max(20, "Password can't be longer than 20 characters")
-      .required("You must input a Password!"),
+    username: Yup.string().min(3).max(15).required(),
+    password: Yup.string().min(4).max(20).required(),
   });
 
   const onSubmit = (data) => {
-    axios.post("http://localhost:3001/auth", data).then (() => {
-        console.log(data);
-    })
-    };
+    axios.post("http://localhost:3001/auth", data).then(() => {
+      console.log(data);
+    });
+  };
 
   return (
-    <div className="registrationContainer">
+    <div>
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
         <Form className="formContainer">
-          <label htmlFor="username">Username: </label>
+          <label>Username: </label>
           <ErrorMessage name="username" component="span" />
           <Field
-            autoComplete="off"
+            autocomplete="off"
             id="inputCreatePost"
             name="username"
             placeholder="(Ex. John123...)"
           />
 
-          <label htmlFor="password">Password: </label>
+          <label>Password: </label>
           <ErrorMessage name="password" component="span" />
           <Field
-            autoComplete="off"
-            id="inputPassword"
-            name="password"
+            autocomplete="off"
             type="password"
-            placeholder="Your Password"
+            id="inputCreatePost"
+            name="password"
+            placeholder="Your Password..."
           />
 
-          <button type="submit"> Register </button>
+          <button type="submit"> Register</button>
         </Form>
       </Formik>
     </div>
