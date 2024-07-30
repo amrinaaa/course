@@ -10,7 +10,7 @@ router.post("/", async (req, res) => {
       username: username,
       password: hash,
     });
-    res.json("SUCCESS");
+    res.json("Berhasil");
   });
 });
 
@@ -19,12 +19,12 @@ router.post("/login", async (req, res) => {
 
   const user = await Users.findOne({ where: { username: username } });
 
-  if (!user) res.json({ error: "User Doesn't Exist" });
+  if (!user) res.json({ error: "User Tidak Ditemukan" });
 
   bcrypt.compare(password, user.password).then((match) => {
-    if (!match) res.json({ error: "Wrong Username And Password Combination" });
+    if (!match) res.json({ error: "Username dan Password Tidak Sesuai" });
 
-    res.json("YOU LOGGED IN!!!");
+    res.json("Login Berhasil");
   });
 });
 
