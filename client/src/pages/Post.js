@@ -23,12 +23,20 @@ function Post() {
   const handleAddComment = () => {
     axios.post("http://localhost:3001/comments", {
       commentBody: newComment,
-      PostId: id
+      PostId: id},
+      {
+        headers: {
+          accessToken: sessionStorage.getItem("accessToken"),
+      }
     }).then(response => {
+      if (response.data.error) {
+        console.log(response.data.error);
+
+      } else {
+      const commentToAdd = {commentBody: newComment};
       setComments([...comments, response.data]); // Add new comment to state
       setNewComment(""); // Clear input field
-    }).catch(error => {
-      console.error("Error adding comment:", error);
+    }
     });
   };
 
